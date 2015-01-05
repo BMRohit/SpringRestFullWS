@@ -61,7 +61,11 @@ public class RestFullController {
 	private ResponseEntity<Object> getProduct(@RequestParam(value="id")long id) {
 		logger.info("Getting product of id ....."+id);
 		try{
-			return new ResponseEntity<Object>(productService.getProduct(id), HttpStatus.OK);
+			Product product = productService.getProduct(id);
+			if(product != null)
+				return new ResponseEntity<Object>(productService.getProduct(id), HttpStatus.OK);
+			else
+				return new ResponseEntity<Object>(new ErrorMessage("Product not found for id "+id), HttpStatus.NOT_FOUND);
 		}
 		catch(Exception ex)
 		{
@@ -75,7 +79,10 @@ public class RestFullController {
 		logger.info("Fetching all the Products...");
 		try{
 			List<Product> products = productService.getProducts();
-			return new ResponseEntity<Object>(products, HttpStatus.OK);
+			if(products != null)
+				return new ResponseEntity<Object>(products, HttpStatus.OK);
+			else
+				return new ResponseEntity<Object>(new ErrorMessage("No products found "), HttpStatus.NOT_FOUND);
 		}
 		catch(Exception ex)
 		{

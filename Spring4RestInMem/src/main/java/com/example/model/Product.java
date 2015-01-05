@@ -5,6 +5,8 @@ package com.example.model;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Rohit
  *
@@ -16,6 +18,7 @@ public class Product
 	private long productID;
 	private String productName;
 	private double price;
+	
 	private byte[] image;
 	
 	
@@ -65,7 +68,7 @@ public class Product
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
+	@JsonIgnore
 	public byte[] getImage() {
 		return image;
 	}
